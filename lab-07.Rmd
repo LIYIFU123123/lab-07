@@ -25,6 +25,9 @@ evals<-read.csv("data/evals.csv", row.names=1)
 
 ```{r viz-score}
 # add code here
+ggplot(data=evals, mapping=(aes(x=score)))+
+  geom_histogram(bins=15)
+summary (evals$score)
 ```
 
 *Add your other details and narratives here.*
@@ -33,6 +36,11 @@ evals<-read.csv("data/evals.csv", row.names=1)
 
 ```{r scatterplot}
 # add code here
+ggplot(data=evals, mapping=(aes(x=score, y=bty_avg)))+
+  geom_point()
+ggplot(data=evals, mapping=(aes(x=score, y=bty_avg)))+
+  geom_jitter()+
+  geom_smooth(method=lm,se=FALSE)
 ```
 
 *Add your narrative and other details here.*
@@ -45,7 +53,8 @@ evals<-read.csv("data/evals.csv", row.names=1)
 # remove eval = FALSE from the code chunk options after filling in the blanks
 score_bty_fit <- linear_reg() %>%
   set_engine("lm") %>%
-  fit(___ ~ ___, data = ___)
+  fit(score ~ bty_avg, data =evals)
+  tidy(score_bty_fit)
 ```
 
 ```{r tidy-score_bty_fit, eval = FALSE}
